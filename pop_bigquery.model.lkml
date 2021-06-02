@@ -12,3 +12,11 @@ explore: order_items {
   #   relationship: many_to_one
   #   }
 }
+
+explore: pop_simple {
+  label: "PoP Method 2: Allow users to choose periods with parameters"
+  always_filter: {
+    # filters: [choose_comparison, choose_breakdown]
+    filters: [choose_comparison: "Year", choose_breakdown: "Month"]
+  }
+} #article missing this closing parenthesis
