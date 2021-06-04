@@ -1,3 +1,8 @@
+###  Period over Period Method 3: Custom choice of current and previous periods with parameters
+
+# Like Method 2, but instead of using parameters to simply select the appropriate date dimension,
+# we will use liquid to define the logic to pick out the correct periods for each selection.
+
 include: "/views/order_items.view.lkml"
 
 view: pop_parameters {
@@ -47,7 +52,7 @@ view: pop_parameters {
 ## ------------------ HIDDEN HELPER DIMENSIONS  ------------------ ##
 
   dimension: days_in_period {
-    hidden:  yes
+    # hidden:  yes
     view_label: "_PoP"
     description: "Gives the number of days in the current period date range"
     type: number
@@ -55,7 +60,7 @@ view: pop_parameters {
   }
 
   dimension: period_2_start {
-    hidden:  yes
+    # hidden:  yes
     view_label: "_PoP"
     description: "Calculates the start of the previous period"
     type: date
@@ -69,7 +74,7 @@ view: pop_parameters {
   }
 
   dimension: period_2_end {
-    hidden:  yes
+    # hidden:  yes
     view_label: "_PoP"
     description: "Calculates the end of the previous period"
     type: date
@@ -118,10 +123,10 @@ view: pop_parameters {
 
   ## ------- HIDING FIELDS  FROM ORIGINAL VIEW FILE  -------- ##
 
-  dimension_group: created {hidden: yes}
-  dimension: ytd_only {hidden:yes}
-  dimension: mtd_only {hidden:yes}
-  dimension: wtd_only {hidden:yes}
+  # dimension_group: created {hidden: yes}
+  # dimension: ytd_only {hidden:yes}
+  # dimension: mtd_only {hidden:yes}
+  # dimension: wtd_only {hidden:yes}
 
 
 ## ------------------ DIMENSIONS TO PLOT ------------------ ##
