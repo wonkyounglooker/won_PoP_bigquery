@@ -48,3 +48,10 @@ explore: pop_parameters_multi_period {
         {% else %} 1 = 1
         {% endif %};;
 }
+
+explore: pop_parameters_with_custom_range {
+  label: "PoP Method 5: Compare current period with another arbitrary period"
+  always_filter: {
+    filters: [current_date_range: "1 month", previous_date_range: "2 months ago for 2 days"]
+  }
+}
