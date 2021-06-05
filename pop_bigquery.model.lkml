@@ -55,3 +55,11 @@ explore: pop_parameters_with_custom_range {
     filters: [current_date_range: "1 month", previous_date_range: "2 months ago for 2 days"]
   }
 }
+
+explore: pop_arbitrary {
+  label: "PoP Method 6: Compare two arbitrary date ranges"
+  always_filter: {
+    # filters: [first_period_filter, second_period_filter, period_selected:"-NULL"]
+    filters: [first_period_filter: "1 year", second_period_filter: "2 years ", period_selected:"-NULL"]
+  }
+}

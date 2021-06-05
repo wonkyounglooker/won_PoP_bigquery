@@ -30,16 +30,23 @@ view: pop_arbitrary {
 
   dimension: days_from_start_first {
     view_label: "_PoP"
-    hidden: yes
+    # hidden: yes
     type: number
-    sql: DATEDIFF('day',  {% date_start first_period_filter %}, ${created_date}) ;;
+    # the order here matters because
+    # BigQuery doc: "If the first DATE is earlier than the second one, the output is negative."
+    # Redshift doc: "If the second date or time is earlier than the first date or time, the result is negative."
+    sql: DATE_DIFF(${created_date}, DATE({% date_start first_period_filter %}), DAY)  ;;
+
   }
 
   dimension: days_from_start_second {
     view_label: "_PoP"
-    hidden: yes
+    # hidden: yes
     type: number
-    sql: DATEDIFF('day',  {% date_start second_period_filter %}, ${created_date}) ;;
+    # the order here matters because
+    # BigQuery doc: "If the first DATE is earlier than the second one, the output is negative."
+    # Redshift doc: "If the second date or time is earlier than the first date or time, the result is negative."
+    sql: DATE_DIFF( ${created_date}, DATE({% date_start second_period_filter %}), DAY)  ;;
   }
 
 ## ------------------ DIMENSIONS TO PLOT ------------------ ##
