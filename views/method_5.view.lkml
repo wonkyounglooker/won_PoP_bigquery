@@ -3,7 +3,7 @@
 # Like Method 3, but allows you to compare the current period with any other arbitrary date range period
 
 
-include: "pop_parameters.view.lkml"
+include: "/views/method_3.view.lkml"
 
 ## This extended version allows the user to also choose a custom date range for the previous period
 

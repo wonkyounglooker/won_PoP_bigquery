@@ -3,7 +3,7 @@
 # Like Method 2, but instead of using parameters to simply select the appropriate date dimension,
 # we will use liquid to define the logic to pick out the correct periods for each selection.
 
-include: "/views/order_items.view.lkml"
+include: "/views/method_1.view.lkml"
 
 view: pop_parameters {
   extends: [order_items]

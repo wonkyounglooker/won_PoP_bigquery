@@ -2,7 +2,7 @@
 
 # Like Method 3, but expanded to compare more than two periods
 
-include: "pop_parameters.view.lkml"
+include: "/views/method_3.view.lkml"
 # This extended version allows you to choose multiple periods (this can also work in conjunction with the custom range version, or separately)
 
 view: pop_parameters_multi_period {
