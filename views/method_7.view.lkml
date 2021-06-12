@@ -18,7 +18,7 @@ view: pop_previous {
     hidden: yes
     type: time
     timeframes: [raw,date]
-    #You can use the first date in your database instead of '2013-01-01'
+    #You can replace the '2013-01-01' with the first date in your database
     sql: CASE WHEN {% date_start date_filter %} IS NULL THEN '2013-01-01' ELSE CAST({% date_start date_filter %} AS DATE) END;;
   }
 
