@@ -6,11 +6,6 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 
 explore: order_items {
   label: "PoP Method 1: Use Looker's native date dimension groups"
-  # join: orders {
-  #   type: left_outer
-  #   sql_on: ${order_items.order_id} = ${orders.id} ;;
-  #   relationship: many_to_one
-  #   }
 }
 
 explore: pop_simple {
@@ -62,4 +57,12 @@ explore: pop_arbitrary {
     # filters: [first_period_filter, second_period_filter, period_selected:"-NULL"]
     filters: [first_period_filter: "1 year", second_period_filter: "2 years ", period_selected:"-NULL"]
   }
+}
+
+explore: pop_previous {
+  label: "PoP Method 7: Compare any period with the previous period"
+  always_filter: {
+    filters: [date_filter: "1 year"]
+  }
+  sql_always_where: ${timeframes} <>'Not in time period' ;;
 }
