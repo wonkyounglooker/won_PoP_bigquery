@@ -16,7 +16,7 @@ view: order_items {
     # Not originally in the article
     view_label: "_PoP"
     type: number
-    sql: ${TABLE}.order_id ;;
+    sql: ${TABLE}.orders_id ;;
   }
 
   dimension_group: created {
@@ -39,7 +39,7 @@ view: order_items {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: timestamp_add(${TABLE}.created_at, interval 1450 day) ;;
     convert_tz: no
   }
 
