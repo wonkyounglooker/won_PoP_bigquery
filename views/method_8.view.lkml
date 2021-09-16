@@ -15,7 +15,7 @@ view: pop {
 # Choose a date range to filter on
   filter: date_filter  {
     label: "1. Date Range"
-    hidden: yes
+    # hidden: yes
     type: date
     convert_tz: no
   }
@@ -149,14 +149,20 @@ parameter: over_period_type {
 # This is the dimension we will plot as rows
 # This version is always ordered correctly
   dimension: reference_date {
-    hidden: yes
+    # hidden: yes
 #type: date_time <-- too aggressive with choosing your string formatting for you
 #type: date <-- too aggressive with truncating the time part
 #convert_tz: no
 #type: nothing <-- just right
     sql: DATE_TRUNC(
-    DATE_ADD({% date_end pop.date_filter %}, INTERVAL 0 - ${within_periods.n} {% parameter pop.within_period_type %})
+     DATE_ADD(
+    --TIMESTAMP_ADD(
+    {% date_end pop.date_filter %}
+    -- , INTERVAL (0 - ${within_periods.n}) {% parameter pop.within_period_type %})
+    -- below I've replaced (0 - ${within_periods.n}) with a hard-coded value for testing purposes
+    , INTERVAL 1 {% parameter pop.within_period_type %})
     , {% parameter pop.within_period_type %});;
+
   }
 
 # This is the version we will actually plot in the data with nice formatting
@@ -196,7 +202,7 @@ parameter: over_period_type {
 # This view establishes the max number of previous periods (doesn't need editing)
     view: numbers {
       sql_table_name: (
-            SELECT 00 as n UNION ALL SELECT 01 UNION ALL SELECT 02 UNION ALL
+            SELECT 00 AS n UNION ALL SELECT 01 UNION ALL SELECT 02 UNION ALL
             SELECT 03 UNION ALL SELECT 04 UNION ALL SELECT 05 UNION ALL
             SELECT 06 UNION ALL SELECT 07 UNION ALL SELECT 08 UNION ALL
             SELECT 09 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL

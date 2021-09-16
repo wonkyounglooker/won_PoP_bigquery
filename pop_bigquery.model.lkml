@@ -9,7 +9,6 @@ explore: order_items {
 explore: pop_simple {
   label: "PoP Method 2: Allow users to choose periods with parameters"
   always_filter: {
-    # filters: [choose_comparison, choose_breakdown]
     filters: [choose_comparison: "Year", choose_breakdown: "Month"]
   }
 } #article missing this closing parenthesis
@@ -91,18 +90,20 @@ explore: flexible_pop {
     from: numbers
     type: left_outer
     relationship: one_to_many
-    fields: []
+    # fields: []
     # This join creates fanout, creating one additional row per required period
     # Here we calculate the size of the current period, in the units selected by the filter
     # The DATEDIFF unit is in days, so if we want hours we have to multiply it by 24
     # (It might be possible to make this more efficient with a more granular function like TIMESTAMPDIFF where you can specify the interval units)
     sql_on:
     CASE WHEN
-        ${within_periods.n} <=
-        (DATE_DIFF(DATE({% date_start pop.date_filter %}), DATE({% date_end pop.date_filter %}), {% parameter pop.within_period_type %})
-          * CASE WHEN '{% parameter pop.within_period_type %}' = 'hour' THEN 24 ELSE 1 END)
-      THEN 1 ELSE 0 END
-       = 1 ;;
+    ${within_periods.n} <=
+    (DATE_DIFF(
+    DATE({% date_end pop.date_filter %}),
+    DATE({% date_start pop.date_filter %}), {% parameter pop.within_period_type %})
+    * CASE WHEN '{% parameter pop.within_period_type %}' = 'hour' THEN 24 ELSE 1 END)
+    THEN 1 ELSE 0 END
+    = 1 ;;
     # sql_on: 1=1;;
     # because BigQuery does not support a condition that's not an equality of fields from both sides in a join, we're going to do the below in the sql_always_where
     # sql_on: ${within_periods.n}
@@ -153,3 +154,5 @@ explore: flexible_pop {
   }
 
 }
+
+explore: numbers {}
